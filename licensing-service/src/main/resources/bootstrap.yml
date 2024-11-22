@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://localhost:8071
+      profile: dev
+      fail-fast: true
+  config:
+    import: optional:configserver:http://localhost:8071
+    #    bus:
+    #      enabled: true
+#  rabbitmq:
+#    host: rabbitmq
+#    port: 5672
+#    username: guest
+#    password: guest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "refresh,bus-refresh,*"

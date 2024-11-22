@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: licensing-service
+  profiles:
+    active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "refresh,bus-refresh,*"

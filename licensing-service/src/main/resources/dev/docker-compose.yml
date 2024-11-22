@@ -1,0 +1,31 @@
+services:
+  configserver:
+    image: configserver
+    container_name: configserver
+    ports:
+      - "8071:8071"
+    environment:
+      SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME:
+      SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD:
+    networks:
+      backend:
+#        aliases:
+#            - licenseservice
+  licensingservice:
+    image: licensing-service
+    container_name: licensingservice
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+      SPRING_CLOUD_CONFIG_URI: http://localhost:8071
+      SPRING_CLOUD_CONFIG_PROFILE: dev
+      SPRING_CONFIG_IMPORT: optional:configserver:http://localhost:8071
+    depends_on:
+      - configserver
+    networks:
+      backend:
+    restart: always
+networks:
+  backend:
+    driver: bridge
