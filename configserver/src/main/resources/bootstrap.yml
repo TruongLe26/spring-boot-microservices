@@ -11,39 +11,9 @@ spring:
           username: ${USERNAME}
           password: ${PASSWORD}
           default-label: main
-#    bus:
-#      enabled: true
-#  rabbitmq:
-#    host: rabbitmq
-#    port: 5672
-#    username: guest
-#    password: guest
+
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-#spring:
-#  application:
-#    name: configserver
-#  profiles:
-#    active: composite
-#  cloud:
-#    config:
-#      server:
-#        composite:
-#          - type: native
-#            search-locations: classpath:/config
-#        bootstrap: true
-
-#spring:
-#  application:
-#    name: config-server
-#  cloud:
-#    config:
-#      server:
-#        native:
-#          search-locations: classpath:/config # pointing to src/main/resources/config
-#        git:
-#          uri: https://github.com/TruongLe26/config.git
-#          search-paths: licensing-service

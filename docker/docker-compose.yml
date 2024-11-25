@@ -1,0 +1,79 @@
+services:
+  database:
+    image: mysql:8.2.0
+    container_name: database
+    ports:
+      - "6033:3306"
+    env_file:
+      - .env
+    volumes:
+      - ./01-init.sql:/docker-entrypoint-initdb.d/1-01-init.sql
+      - ./02-data.sql:/docker-entrypoint-initdb.d/2-02-data.sql
+    networks:
+      backend:
+        aliases:
+          - "database"
+#  configserver:
+#    image: config-server
+#    container_name: configserver
+#    ports:
+#      - "8071:8071"
+#    environment:
+#      SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME:
+#      SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD:
+#    networks:
+#      backend:
+#        aliases:
+#          - "configserver"
+#  eurekaserver:
+#    image: eurekaserver
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
+#      SPRING_CLOUD_CONFIG_PROFILE: "default"
+#      SPRING_CONFIG_IMPORT: "optional:configserver:http://configserver:8071"
+#    depends_on:
+#      database:
+#        condition: service_started
+#      configserver:
+#        condition: service_started
+#    networks:
+#      backend:
+#        aliases:
+#          - "eurekaserver"
+#  licensingservice:
+#    image: licensing-service
+#    container_name: licensing-service
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
+#      SPRING_CLOUD_CONFIG_PROFILE: "dev"
+#      SPRING_CONFIG_IMPORT: "optional:configserver:http://configserver:8071"
+#    depends_on:
+#      database:
+#        condition: service_started
+#      configserver:
+#        condition: service_started
+#    networks:
+#      - backend
+#  organizationservice:
+#    image: organization-service
+#    container_name: organization-service
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      SPRING_CLOUD_CONFIG_URI: "http://configserver:8071"
+#      SPRING_CLOUD_CONFIG_PROFILE: "dev"
+#      SPRING_CONFIG_IMPORT: "optional:configserver:http://configserver:8071"
+#    depends_on:
+#      database:
+#        condition: service_started
+#      configserver:
+#        condition: service_started
+#    networks:
+#      - backend
+networks:
+  backend:
+    driver: bridge

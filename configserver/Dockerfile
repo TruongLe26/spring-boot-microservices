@@ -1,4 +1,4 @@
-FROM amazoncorretto:21 AS build
+FROM openjdk:23 AS build
 LABEL maintainer="truonglq"
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar

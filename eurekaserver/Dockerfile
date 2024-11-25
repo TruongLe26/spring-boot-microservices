@@ -1,4 +1,4 @@
-FROM amazoncorretto:21 AS build
+FROM openjdk:23 AS build
 
 LABEL maintainer="truonglq"
 ARG JAR_FILE=target/*.jar
@@ -6,7 +6,7 @@ COPY ${JAR_FILE} app.jar
 
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
 
-FROM amazoncorretto:21
+FROM openjdk:23
 
 VOLUME /tmp
 ARG DEPENDENCY=/target/dependency

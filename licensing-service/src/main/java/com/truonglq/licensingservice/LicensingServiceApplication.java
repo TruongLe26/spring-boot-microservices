@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -18,6 +20,7 @@ import java.util.Locale;
 @RefreshScope
 @EnableDiscoveryClient
 @EnableConfigurationProperties(ServiceConfig.class)
+@EnableFeignClients
 public class LicensingServiceApplication {
 
 	public static void main(String[] args) {
@@ -32,6 +35,7 @@ public class LicensingServiceApplication {
 	}
 
 	@Bean
+	@Primary
 	public ResourceBundleMessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setUseCodeAsDefaultMessage(true);
